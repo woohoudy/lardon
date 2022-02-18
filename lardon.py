@@ -185,7 +185,7 @@ for ievent in range(nevent):
 
     print("hit %.2f s"%(time.time()-th))
     print("Number Of Hits found : ", dc.evt_list[-1].n_hits)
-
+    #Global
     # plot.plot_2dview_hits(to_be_shown=True)
 
 
