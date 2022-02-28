@@ -1,4 +1,4 @@
-data_path = "/eos/experiment/neutplatform/protodune/rawdata/"
+data_path = "/home/thoudy/Work/Nuage/data/"
 
 """ User's specific """
 lardon_path = "."

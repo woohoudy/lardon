@@ -69,7 +69,7 @@ class Hits(IsDescription):
     event   = UInt32Col()
     trigger = UInt32Col()
     ID = UInt32Col()
-
+    local_ID = UInt16Col()
 
     view        = UInt8Col()
     channel     = UInt16Col()
@@ -252,6 +252,7 @@ def store_hits(h5file):
        hit['event'] = dc.evt_list[-1].evt_nb
        hit['trigger'] = dc.evt_list[-1].trigger_nb
        hit['ID']= ih.ID
+       hit['local_ID']= ih.local_ID
 
        hit['daq_channel'] = ih.daq_channel
        hit['view']    = ih.view
