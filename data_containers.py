@@ -46,7 +46,7 @@ def reset_event():
     tracks2D_list.clear()
     tracks3D_list.clear()
     evt_list.clear()
-    
+
     pulse_fit_res.clear()
 
 
@@ -79,7 +79,7 @@ class fit_pulse:
         self.channel = chan
         self.n_pulse_pos = np_pos
         self.n_pulse_neg = np_neg
-        
+
         self.fit_pos = fit_pos
         self.fit_neg = fit_neg
 
@@ -139,15 +139,18 @@ class hits:
         self.t = 0.
 
         self.charge_pos  = 0.
-        self.charge_neg  = 0.        
+        self.charge_neg  = 0.
         self.charge = 0.
 
-        
+
         self.max_adc = max_adc
         self.min_adc = min_adc
 
         self.max_fC = self.max_adc*chmap[self.daq_channel].gain
         self.min_fC = self.min_adc*chmap[self.daq_channel].gain
+
+        self.shape_abs_pos = 0.
+        self.shape_abs_neg = 0.
 
         self.cluster = -1
         self.X       = -1
@@ -169,7 +172,7 @@ class hits:
 
         """ trick because view Y is separated into 2 sub-volumes in CB1 """
         self.X = self.channel%cf.view_chan_repet[self.view] * cf.view_pitch[self.view] + cf.view_offset[self.view] +  cf.view_pitch[self.view]/2.
-        
+
 
         """ transforms time bins into distance from the anode """
         """ for CB it does not mean someting concrete """
@@ -182,7 +185,7 @@ class hits:
 
 
     def hit_charge(self):
-        
+
         self.charge_pos *= chmap[self.daq_channel].gain
         self.charge_neg *= chmap[self.daq_channel].gain
 
@@ -239,7 +242,7 @@ class trk2D:
         self.n_hits      = 1
         self.n_hits_dray = 0
         self.hits_ID = [hit_ID]
- 
+
         self.path    = [(x0,y0)]
         self.dQ      = [q0]
 

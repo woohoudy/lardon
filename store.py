@@ -56,7 +56,7 @@ class Waveform(IsDescription):
 class Pulse(IsDescription):
     event   = UInt32Col()
     trigger = UInt32Col()
-    
+
     view        = UInt8Col()
     channel     = UInt16Col()
     daq_channel = UInt16Col()
@@ -91,6 +91,8 @@ class Hits(IsDescription):
     charge_pos = Float32Col()
     charge_neg = Float32Col()
 
+    shape_abs_pos = Float32Col()
+    shape_abs_neg = Float32Col()
 
 
 class Tracks2D(IsDescription):
@@ -256,23 +258,24 @@ def store_hits(h5file):
        hit['channel'] = ih.channel
 
        hit['is_collection'] = ih.signal == "Collection"
-       
+
        hit['tdc_max']  = ih.max_t
        hit['tdc_min']  = ih.min_t
        hit['tdc_zero'] = ih.zero_t
 
        hit['z']       = ih.Z
        hit['x']       = ih.X
-       
-       
+
+
        hit['fC_max']  = ih.max_fC
        hit['fC_min']  = ih.min_fC
-       
+
 
        hit['charge_pos'] = ih.charge_pos
        hit['charge_neg'] = ih.charge_neg
 
-
+       hit['shape_abs_pos'] = ih.shape_abs_pos
+       hit['shape_abs_neg'] = ih.shape_abs_neg
        hit.append()
 
 
@@ -363,7 +366,7 @@ def store_tracks3D(h5file):
 
 def store_avf_wvf(h5file):
     twvf = h5file.root.waveform.row
-    
+
 
     for i in range(cf.n_tot_channels):
         twvf['view'] = dc.chmap[i].view
@@ -395,8 +398,8 @@ def store_pulse(h5file):
     vl_neg = h5file.get_node('/neg_pulse')
 
     for p in dc.pulse_fit_res:
-        tpul['event'] = dc.evt_list[-1].evt_nb 
-        tpul['trigger'] = dc.evt_list[-1].trigger_nb     
+        tpul['event'] = dc.evt_list[-1].evt_nb
+        tpul['trigger'] = dc.evt_list[-1].trigger_nb
         tpul['view'] = p.view
         tpul['channel'] = p.channel
         tpul['daq_channel'] = p.daq_channel
@@ -405,6 +408,5 @@ def store_pulse(h5file):
 
         vl_pos.append(p.fit_pos)
         vl_neg.append(p.fit_neg)
-    
+
         tpul.append()
-    
